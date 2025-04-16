@@ -84,49 +84,6 @@ void dung() {
 
 
 
-void tien_1() {
-  digitalWrite(Drv_In1_pin, 0);
-  ledcWrite(Drv_In2_chn, spd-50);
-  digitalWrite(Drv_In3_pin, 0);
-  ledcWrite(Drv_In4_chn, spd-50);
-}
-void rephai_1() {
-  digitalWrite(Drv_In1_pin, 0);
-  ledcWrite(Drv_In2_chn, spd);
-  digitalWrite(Drv_In3_pin, 0);
-  ledcWrite(Drv_In4_chn, spd-30);
-}
-void retrai_1() {
-  digitalWrite(Drv_In1_pin, 0);
-  ledcWrite(Drv_In2_chn, spd-30);
-  digitalWrite(Drv_In3_pin, 0);
-  ledcWrite(Drv_In4_chn, spd);
-}
-void rephai1() {
-  digitalWrite(Drv_In1_pin, 0);
-  ledcWrite(Drv_In2_chn, spd);
-  digitalWrite(Drv_In3_pin, 0);
-  ledcWrite(Drv_In4_chn, spd-50);
-}
-void retrai1() {
-  digitalWrite(Drv_In1_pin, 0);
-  ledcWrite(Drv_In2_chn, spd-50);
-  digitalWrite(Drv_In3_pin, 0);
-  ledcWrite(Drv_In4_chn, spd);
-}
-void rephai2() {
-  digitalWrite(Drv_In1_pin, 0);
-  ledcWrite(Drv_In2_chn, spd);
-  digitalWrite(Drv_In3_pin, 1);
-  ledcWrite(Drv_In4_chn, spd);
-}
-void retrai2() {
-  digitalWrite(Drv_In1_pin, 1);
-  ledcWrite(Drv_In2_chn, spd);
-  digitalWrite(Drv_In3_pin, 0);
-  ledcWrite(Drv_In4_chn, spd);
-}
-
 
 
 
@@ -172,9 +129,15 @@ void do_line() {
 }
 
 // === Servo điều khiển ===
-void toggleServo1() { servo1.write(servo1State ? 0 : 180); servo1State = !servo1State; }
-void toggleServo2() { servo2.write(servo2State ? 0 : 180); servo2State = !servo2State; }
-void toggleServo3() { servo3.write(servo3State ? 0 : 90);  servo3State = !servo3State; }
+void toggleServo1() {
+  servo1.write(servo1State ? 0 : 180);
+  servo1State = !servo1State; }
+void toggleServo2() { 
+  servo2.write(servo2State ? 0 : 180);
+  servo2State = !servo2State; }
+void toggleServo3() { 
+  servo3.write(servo3State ? 0 : 90);
+  servo3State = !servo3State; }
 
 // === Bluetooth command handler ===
 void controlCar(char cmd) {
@@ -205,17 +168,30 @@ void setup() {
   Serial.begin(115200);
   SerialBT.begin("TN1_BANANANA");
 
-  // Motor PWM setup
-  pinMode(Drv_In1_pin, OUTPUT); ledcSetup(Drv_In2_chn, PWM_FREQ, PWM_RES); ledcAttachPin(Drv_In2_pin, Drv_In2_chn);
-  pinMode(Drv_In3_pin, OUTPUT); ledcSetup(Drv_In4_chn, PWM_FREQ, PWM_RES); ledcAttachPin(Drv_In4_pin, Drv_In4_chn);
+  // Set motor pins
+    pinMode(DIR_1_pin, OUTPUT);
+    pinMode(PWM_1_pin, OUTPUT);
+    pinMode(DIR_2_pin, OUTPUT);
+    pinMode(PWM_2_pin, OUTPUT);
+    pinMode(DIR_3_pin, OUTPUT);
+    pinMode(PWM_3_pin, OUTPUT);
+    pinMode(DIR_4_pin, OUTPUT);
+    pinMode(PWM_4_pin, OUTPUT);
 
   // Line sensor
-  pinMode(SENSOR_1, INPUT); pinMode(SENSOR_2, INPUT); pinMode(SENSOR_3, INPUT);
-  pinMode(SENSOR_4, INPUT); pinMode(SENSOR_5, INPUT);
+  pinMode(SENSOR_1, INPUT); 
+  pinMode(SENSOR_2, INPUT);
+  pinMode(SENSOR_3, INPUT);
+  pinMode(SENSOR_4, INPUT);
+  pinMode(SENSOR_5, INPUT);
 
   // Servo
-  servo1.attach(SERVO1_PIN); servo2.attach(SERVO2_PIN); servo3.attach(SERVO3_PIN);
-  servo1.write(0); servo2.write(0); servo3.write(0);
+  servo1.attach(SERVO1_PIN);
+  servo2.attach(SERVO2_PIN);
+  servo3.attach(SERVO3_PIN);
+  servo1.write(0); 
+  servo2.write(0); 
+  servo3.write(0);
 }
 
 // === Loop ===
